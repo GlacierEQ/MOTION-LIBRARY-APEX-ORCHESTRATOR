@@ -1,0 +1,147 @@
+# APEX ORCHESTRATOR CONFIGURATION
+# Supreme command settings for 23-repository ecosystem
+
+version: "1.0.0"
+case_id: "1FDV-23-0001009"
+
+# Repository Integration Map
+repositories:
+  motion_generation:
+    - name: legal-motion-automation
+      url: https://github.com/GlacierEQ/legal-motion-automation
+      priority: critical
+      features: [latex, hawaii-court, motion-templates]
+    
+    - name: hawaii-family-court-legal-automation
+      url: https://github.com/GlacierEQ/hawaii-family-court-legal-automation
+      priority: critical
+      features: [latex, ai-generation, cross-platform]
+    
+    - name: order-generation-engine
+      url: https://github.com/GlacierEQ/order-generation-engine
+      priority: high
+      features: [templates, automation]
+
+  document_intelligence:
+    - name: FILEBOSS
+      url: https://github.com/GlacierEQ/FILEBOSS
+      priority: critical
+      features: [file-processing, foundation]
+    
+    - name: God-Mind
+      url: https://github.com/GlacierEQ/God-Mind
+      priority: critical
+      features: [ai-agents, mcp-integration, consciousness]
+    
+    - name: MEGA-PDF-INTELLIGENT-DOCUMENT-SYSTEM
+      url: https://github.com/GlacierEQ/MEGA-PDF-INTELLIGENT-DOCUMENT-SYSTEM
+      priority: high
+      features: [pdf-ai, learning, optimization]
+
+  filing_court:
+    - name: jefs-legal-ai-fortress
+      url: https://github.com/GlacierEQ/jefs-legal-ai-fortress
+      priority: critical
+      features: [jefs-integration, security, case-intelligence]
+    
+    - name: supernova-legal-warfare-system
+      url: https://github.com/GlacierEQ/supernova-legal-warfare-system
+      priority: critical
+      features: [multi-jurisdiction, coordinated-filing]
+    
+    - name: LEGAL-AI-NEXUS
+      url: https://github.com/GlacierEQ/LEGAL-AI-NEXUS
+      priority: high
+      features: [consolidation, enterprise, multi-jurisdiction]
+
+# Hawaii Family Court Standards
+hawaii_court:
+  formatting:
+    font: "Times New Roman"
+    font_size: 12
+    line_spacing: 2.0
+    margins:
+      top: 1.0
+      bottom: 1.0
+      left: 1.0
+      right: 1.0
+  
+  case_number: "1FDV-23-0001009"
+  court_name: "Family Court of the First Circuit, State of Hawaii"
+  
+  latex_template_path: "templates/hawaii-family-court.tex"
+
+# JEFS Integration
+jefs:
+  enabled: true
+  api_endpoint: "https://jefs.courts.hawaii.gov/api/v1"
+  auth:
+    method: oauth2
+    # Credentials in .env: JEFS_CLIENT_ID, JEFS_CLIENT_SECRET
+  
+  auto_filing: false  # Require manual approval
+  filing_types:
+    - emergency_motion
+    - standard_motion
+    - response
+    - order
+
+# API Gateway Settings
+api_gateway:
+  host: "0.0.0.0"
+  port: 8000
+  auth_required: true
+  rate_limit:
+    requests_per_minute: 100
+  
+  endpoints:
+    - path: /motion/generate
+      target: legal-motion-automation
+    - path: /document/process
+      target: God-Mind
+    - path: /file/submit
+      target: jefs-legal-ai-fortress
+
+# LaTeX Compilation Pipeline
+latex:
+  compiler: pdflatex
+  passes: 3  # For proper citations
+  output_dir: "output/compiled"
+  template_dir: "templates"
+  
+  packages:
+    - inputenc
+    - fontenc
+    - geometry
+    - setspace
+    - fancyhdr
+
+# Deadline Tracking
+deadlines:
+  enabled: true
+  mcp_server: deadline-tracker-mcp
+  notifications:
+    - type: email
+      lead_time_days: 7
+    - type: slack
+      lead_time_days: 3
+
+# Logging & Monitoring
+logging:
+  level: INFO
+  output: logs/apex-orchestrator.log
+  forensic_mode: true  # Evidence-chain logging
+
+# Multi-Jurisdiction Routing
+jurisdictions:
+  hawaii_supreme:
+    filing_system: manual
+    contact: supreme.court@courts.hawaii.gov
+  
+  federal_district:
+    filing_system: pacer
+    credentials_env: PACER_CREDENTIALS
+  
+  hawaii_family:
+    filing_system: jefs
+    auto_submit: false
